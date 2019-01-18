@@ -25,7 +25,7 @@ SECRET_KEY = '3e*j!vs%m_-0efmx8(wxmhhnuts+st79&2h*qo5005#o+rr-sb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.111']
+ALLOWED_HOSTS = ['192.168.0.111', '127.0.0.1']
 
 
 # Application definition
@@ -120,3 +120,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+LOGIN_REDIRECT_URL = '/blog'

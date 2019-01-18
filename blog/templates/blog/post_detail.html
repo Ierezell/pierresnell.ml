@@ -7,7 +7,17 @@
                 {{ post.published_date }}
             </div>
         {% endif %}
+        <a class="btn btn-default" href="{% url 'blog:edit_post' post_nb=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
         <h1>{{ post.title }}</h1>
         <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+    <div class="comment">
+        {% for comment in post.comments.all%}
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaksbr }}</p>
+        {% empty %}
+            <p>Pas encore de commentaires :'(</p>
+        {% endfor %}
     </div>
 {% endblock %}
