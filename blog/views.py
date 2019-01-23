@@ -31,37 +31,11 @@ def commenter(request, post_nb):
             comment = form.save(commit=False)
             comment.post = post
             comment.save()
-            return HttpResponseRedirect(reverse('blog:post_detail', kwargs={'post_nb': post.pk}))
+            return HttpResponseRedirect(reverse('blog:post_detail',
+                                                kwargs={'post_nb': post.pk}))
     else:
         form = CommentForm()
     return render(request, 'blog/addcomment.html', {'form': form})
-    # score = request.POST.get('note')
-    # commentaire = request.POST.get('commentaire')
-    # print(score)
-    # print(commentaire)
-    # if score == None:
-    #     return render(request, 'blog/addcomment.html',
-    #                   {'post': post,
-    #                    'error_message': "Il faut renseignez la note !"
-    #                    })
-    # elif commentaire == '':
-    #     return render(request, 'blog/addcomment.html',
-    #                   {'post': post,
-    #                    'error_message': "Il faut renseignez le commentaire !"
-    #                    })
-    # elif len(commentaire) < 10:
-    #     return render(request, 'blog/addcomment.html',
-    #                   {'post': post,
-    #                    'error_message': "Allez un effort faites un vrai commentaire !"
-    #                    })
-    # else:
-    #     print(f"({post.note}*{post.nb_vote})/{post.nb_vote+1}+{int(score)}/{post.nb_vote+1}")
-
-    #     post.note = (post.note*post.nb_vote)/(post.nb_vote+1)+int(score)/(post.nb_vote+1)
-    #     post.nb_vote += 1
-    #     post.save()
-    #     print(post.note)
-    #     return HttpResponseRedirect(reverse('blog:post_list'))
 
 
 @login_required
@@ -90,7 +64,8 @@ def edit_post(request, post_nb):
             post.author = request.user
             post.published_date = timezone.now()
             post.save()
-            return HttpResponseRedirect(reverse('blog:post_detail', kwargs={'post_nb': post.pk}))
+            return HttpResponseRedirect(reverse('blog:post_detail',
+                                                kwargs={'post_nb': post.pk}))
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/edit_new_post.html', {'form': form})
