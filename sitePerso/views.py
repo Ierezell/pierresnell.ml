@@ -7,20 +7,24 @@ from .forms import PostForm, CommentForm
 from django.contrib.auth.decorators import login_required
 
 
+def acceuil(request):
+    return render(request, 'sitePerso/acceuil.html')
+
+
 def last_posts(request):
     posts = Post.objects.order_by('-published_date')[:5]
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    return render(request, 'sitePerso/post_list.html', {'posts': posts})
 
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()
                                 ).order_by('published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    return render(request, 'sitePerso/post_list.html', {'posts': posts})
 
 
 def post_detail(request, post_nb):
     post = get_object_or_404(Post, pk=post_nb)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    return render(request, 'sitePerso/post_detail.html', {'post': post})
 
 
 def commenter(request, post_nb):
