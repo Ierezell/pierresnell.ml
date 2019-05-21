@@ -1,5 +1,40 @@
 {% extends 'sitePerso/base.html' %}
-
+{% load static %}
 {% block content %}
-    <p>Coucou bienvenue sur l'acecuil</p>
+    <div class="container presentation">
+        <p> I'm Pierre Snell, student in computer science at Laval University in Québec.</p>
+    </div>
+    <div class="card-deck">
+        <div class="card align-items-center">
+            <a href="{% url 'sitePerso:professional' %}">
+                <img class="card-img-top" src="{% static "images/pro.png" %}" alt="Card image cap">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">Professional informations</h5>
+                <p class="card-text">Click here if you want to get in touch with me for buisness or research.</p>
+                <p class="card-text">You will find my porofollio, some of my projects, and any profesional useful informations.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+        <div class="card align-items-center">
+            <a href="{% url 'sitePerso:projets' %}">
+                <img class="card-img-top" src="{% static "images/laptop.png" %}" alt="Card image cap">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">Projects</h5>
+                <p class="card-text">Memo and informations about my projects, which can be personals or for school/buisness</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+        <div class="card align-items-center">
+            <a href="{% url 'sitePerso:things' %}">
+                <img class="card-img-top" src="{% static "images/box.png" %}" alt="Card image cap">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">Useful things</h5>
+                <p class="card-text">Miscellaneous stuff for me, like my dotfiles for linux, some documents, references and much more.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}

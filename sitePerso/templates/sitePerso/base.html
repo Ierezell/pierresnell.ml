@@ -5,51 +5,80 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Pierre Snell</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/sitePerso.css' %}">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <title>Pierre Snell</title>
+        <style>#logo {
+            max-width: 70px;
+            }
+        </style>
     </head>
+
     <body>
         <nav class="navbar navbar-expend-lg navbar-dark bg-dark">
-            <span class="navbar-text">
-                <img src="{% static "images/BrainComputerSplit.png" %}" width="10%" height="10%" alt="My image">
-            </span>
-            <span class="navbar-item">
-                Log in
-            </span>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="{% url 'sitePerso:acceuil' %}">
+                <img id="logo" src="{% static "images/BrainComputerSplit.png" %}" class="img-fluid" alt="Logo">
+            </a>
+            {% comment %} <a href="{% url 'sitePerso:new_post' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a> {% endcomment %}
+            <a class="navbar-text" href="{% url 'sitePerso:professional' %}">
+                Professionals
+            </a>
+            <a class="navbar-text" href="{% url 'sitePerso:projets' %}">
+                Projects
+            </a>
+            <a class="navbar-text" href="{% url 'sitePerso:things' %}">
+                Misc
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+            <div class="collapse navbar-collapse" id="navbarText">
                 <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                {% if user.is_authenticated %}
+                    <p class="navbar-text">  Hello {{ user.username }} ! <i class="fas fa-lg fa-hand-spock" style="color:#9A9DA0"></i> </p>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-lg fa-sign-out-alt" style="color:#9A9DA0"> Logout</i></a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fas fa-lg fa-user" style="color:#9A9DA0"> Login</i></a>
+                {% endif %}
+                <a class="nav-item nav-link active" href="{% url 'sitePerso:contact' %}">Contact me<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="#">Features</a>
                 <a class="nav-item nav-link" href="#">Pricing</a>
                 <a class="nav-item nav-link disabled" href="#">Disabled</a>
                 </div>
             </div>
         </nav>
-        <div class="post-header">
-            <h1><a href="{% url 'sitePerso:post_list'%}">Mon super blog</a></h1>
-            {% if user.is_authenticated %}
-                <a href="{% url 'sitePerso:new_post' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-                <p class="top-menu">Hello {{ user.username }} <small>(<a href="{% url 'logout' %}">Log out</a>)</small></p>
-            {% else %}
-                <a href="{% url 'login' %}" class="top-menu"><span class="glyphicon glyphicon-lock"></span></a>
-            {% endif %}
+
+        <div class="container text-center">
+            {% block content %}
+            {% endblock %}
         </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
+
+        <footer>
+            <div class="container text-center">
+                <a href="https://join.skype.com/invite/Cy8kvvxljmzK" target="_blank"><i style="color:#343A40" class="fas fa-lg fa-skype">  </i></a>
+                <a href="https://www.linkedin.com/in/pierre-snell-671229140/" target="_blank"><i style="color:#343A40" class="fab fa-lg fa-linkedin">  </i></a>
+                <a href="https://www.facebook.com/pierre.snell" target="_blank"><i style="color:#343A40" class="fab fa-lg fa-facebook">  </i></a>
+                <a href="mailto:pierre.snell.1@ulaval.ca" target="_blank"><i style="color:#343A40" class="fas fa-lg fa-envelope">  </i></a>
+                <a href="https://github.com/Ierezell" target="_blank"><i style="color:#343A40" class="fab fa-lg fa-github">  </i></a>
+            </div>
+            <div class="container text-center">
+                <div style="color:#343A40">
+                    Made with
+                    <a href="https://www.djangoproject.com" target="_blank"><i style="color:#343A40" class="fab fa-python">  </i></a>
+                    <a href="https://getbootstrap.com" target="_blank"><i style="color:#343A40" class="fab fa-bootstrap">  </i></a>
+                    <a href="https://www.w3schools.com/html/html5_intro.asp" target="_blank"><i style="color:#343A40" class="fab fa-html5">  </i></a>
                 </div>
             </div>
-        </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <div class="container text-center">
+                <small style="color:#343A40" class="copyright">Copyright &copy 2019 SVAPP Private Limited.All Rights Reserved.</small>
+            </div>
+        </footer>
     </body>
 </html>

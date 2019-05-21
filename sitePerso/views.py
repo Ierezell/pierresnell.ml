@@ -11,6 +11,22 @@ def acceuil(request):
     return render(request, 'sitePerso/acceuil.html')
 
 
+def contact(request):
+    return render(request, 'sitePerso/contact.html')
+
+
+def projets(request):
+    return render(request, 'sitePerso/projets.html')
+
+
+def things(request):
+    return render(request, 'sitePerso/things.html')
+
+
+def professional(request):
+    return render(request, 'sitePerso/professional.html')
+
+
 def last_posts(request):
     posts = Post.objects.order_by('-published_date')[:5]
     return render(request, 'sitePerso/post_list.html', {'posts': posts})

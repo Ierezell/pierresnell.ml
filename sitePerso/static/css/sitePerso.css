@@ -1,33 +1,29 @@
-.post-header {
+/* .post-header {
     background-color: #ff9400;
     margin-top: 0px;
     padding: 50px 50px 50px 40px;
     margin-bottom: 0px;
-}
+} */
 
-.post-header h1, .post-header h1 a, .post-header h1 a:visited, .post-header h1 a:active {
+/* .post-header h1, .post-header h1 a, .post-header h1 a:visited, .post-header h1 a:active {
     color: #ffffff;
     font-size: 36pt;
     text-decoration: none;
-}
+} */
 
-.content {
-    margin-left: 40px;
-}
-
-h1, h2, h3, h4 {
+/* h1, h2, h3, h4 {
     font-family: 'Lobster', cursive;
-}
+} */
 
-.date {
+/* .date {
     float: right;
     color: #828282;
 }
 
 .save {
     float: right;
-}
-
+} */
+/*
 .post-form textarea, .post-form input {
     width: 100%;
 }
@@ -48,4 +44,31 @@ h1, h2, h3, h4 {
 }
 .comment {
     margin: 20px 0px 20px 20px;
+} */
+
+/* .text_dark {
+    color: #9A9DA0;
+    margin: 0px 0px 0px 0px;
+    padding : 7.5px 0px;
+
+} */
+
+body{
+    background-color: #9A9DA0;
 }
+.card-img-top {
+    width: 18vw;
+    height: 20vw;
+    /* object-fit: cover; */
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 0;
+  }
