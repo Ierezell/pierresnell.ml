@@ -1,0 +1,16 @@
+{% extends 'sitePerso/base.html' %}
+{% load static %}
+{% block content %}
+    {% for folder in folders %}
+            <h1><a href="{% url 'sitePerso:files' path=parent|add:'+'|add:folder %}">{{ folder }}</a></h1>
+            <h1>{{ folder }}</h1>
+    {% empty %}
+        <p>Pas de dossiers disponibles... :'( </p>
+    {% endfor %}
+    {% for file in files %}
+            <h1> <a href="{% url 'sitePerso:download' parent|add:'+'|add:file %}">{{ file }}</a></h1>
+            <h1> {{ file }}</h1>
+    {% empty %}
+        <p>Pas de fichiers disponibles... :'( </p>
+    {% endfor %}
+{% endblock %}

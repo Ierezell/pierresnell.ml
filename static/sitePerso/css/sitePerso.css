@@ -54,7 +54,8 @@
 } */
 
 body{
-    background-color: #9A9DA0;
+    /* background-color: rgb(6, 255, 26); */
+    background-color: rgb(255, 255, 255);
 }
 .card-img-top {
     width: 18vw;
@@ -62,13 +63,19 @@ body{
     /* object-fit: cover; */
 }
 
-/*
+
+a.navbar-text:hover{
+    background: #9A9DA0;
+    color: blueviolet;
+}
+
 footer {
-    position: relative;
+    position: absolute;
+    bottom: 0;
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 0;
-  } */
+}

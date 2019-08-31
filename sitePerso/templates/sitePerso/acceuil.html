@@ -1,13 +1,19 @@
 {% extends 'sitePerso/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container presentation">
+    <div class="container">
         <p> I'm Pierre Snell, student in computer science at Laval University in Québec.</p>
     </div>
-    <div class="card-deck">
+    <div id="wordcloud" class="jqcloud" style="width: 100%; overflow: hidden; height: 600px; position: relative;"></div>
+    {% comment %} <button onclick="update_cloud()">Click me</button> {% endcomment %}
+    <button onclick="update_cloud()">Click me</button>
+    <button onclick="create_cloud()">Create</button>
+    {% comment %} <button id="update">Click ma</button> {% endcomment %}
+    {% comment %} <button onclick="create_cloud()">Click mu</button> {% endcomment %}
+    {% comment %} <div class="card-deck">
         <div class="card align-items-center">
             <a href="{% url 'sitePerso:professional' %}">
-                <img class="card-img-top" src="{% static "images/pro.png" %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static "sitePerso/images/pro.png" %}" alt="Card image cap">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Professional informations</h5>
@@ -18,7 +24,7 @@
         </div>
         <div class="card align-items-center">
             <a href="{% url 'sitePerso:projets' %}">
-                <img class="card-img-top" src="{% static "images/laptop.png" %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static "sitePerso/images/laptop.png" %}" alt="Card image cap">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Projects</h5>
@@ -28,7 +34,7 @@
         </div>
         <div class="card align-items-center">
             <a href="{% url 'sitePerso:things' %}">
-                <img class="card-img-top" src="{% static "images/box.png" %}" alt="Card image cap">
+                <img class="card-img-top" src="{% static "sitePerso/images/box.png" %}" alt="Card image cap">
             </a>
             <div class="card-body">
                 <h5 class="card-title">Useful things</h5>
@@ -36,5 +42,84 @@
                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
+<script type="text/javascript">
+        var voc = [
+            "Recurrent Networks",
+            "Convolutional Networks",
+            "Reinforcement Learning",
+            "Generative Adversial Networks",
+            "Auto Encoders",
+            "Variational Auto Encoders",
+            "Git",
+            "VsCode",
+            "Linux",
+            "ArchLinux",
+            "Python",
+            "Django",
+            "Javascript",
+            "Html",
+            "Css",
+            "Java",
+            "Octave",
+            "Latex",
+            "Mathematica",
+            "Raspberry Pi",
+            "Keil Uvision",
+            "Vhdl",
+            "French",
+            "English",
+            "Russian",
+            "Spanish",,
+            "C",
+            "C++",
+            "Matlab",
+            "Curious",
+            "Social",
+            "Kind",
+            "Ski",
+            "Travels",
+            "Bike",
+            "Guitar",
+            "Paragliding",
+            "Reading",
+            "Trail",
+            "Cinema",
+        ];
+        var vocLength = voc.length;
+
+        function create_cloud(){
+            var weights = [...Array(vocLength)].map((_, i) => Math.floor(Math.random() * 20)+5);
+            alert(weights);
+            var words = [];
+            for (var i = 0; i < vocLength; i++) {
+                words.push({text: voc[i], weight:weights[i]});
+            };
+            $('#wordcloud').jQCloud(words);
+        };
+        create_cloud();
+
+        function update_cloud(){
+            var weights = [...Array(vocLength)].map((_, i) => Math.floor(Math.random() * 20)+5);
+            alert(weights);
+            //alert("ksjd");
+            var new_words = [];
+            for (var i = 0; i < vocLength; i++) {
+                new_words.push({text: voc[i], weight:weights[i]});
+            };
+            //$('#wordcloud').jQCloud("destroy");
+            // new_words.splice(-5);
+            $('#wordcloud').jQCloud('update', new_words);
+            //$('#wordcloud').jQCloud(new_words);
+        };
+
+        {% comment %} $('#update').on('click', function() {
+            var weights = [...Array(vocLength)].map((_, i) => Math.floor(Math.random() * 20)+5)
+            var words = [];
+            for (var i = 0; i < vocLength; i++) {
+                words.push({text: voc[i], weight:weights[i]});
+            };
+            $('#wordcloud').jQCloud('update', words, {delay: 5});
+        }); {% endcomment %}
+</script>
 {% endblock %}

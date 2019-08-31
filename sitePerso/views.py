@@ -1,5 +1,8 @@
+from django.utils.encoding import smart_str
+import os
+import glob
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.urls import reverse
 from .models import Post
@@ -89,3 +92,36 @@ def edit_post(request, post_nb):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/edit_new_post.html', {'form': form})
+
+
+@login_required
+def view_files(request, path='default'):
+    if path == 'default':
+        globed = glob.glob("./media/*")
+        parent = ""
+    else:
+        globed = glob.glob(f"./media/{path.replace('+','/')}/*")
+        parent = path
+    folders = [f.split("/")[-1] for f in globed if os.path.isdir(f)]
+    files = [f.split("/")[-1] for f in globed if os.path.isfile(f)]
+    print(folders)
+    print(files)
+    return render(request, 'sitePerso/files.html', {"folders": folders,
+                                                    "files": files,
+                                                    "parent": parent})
+
+
+@login_required
+def download(request, path):
+    path = path.strip("+")
+    path_to_file = path.replace("+", "/")
+    file_name = path_to_file.split("/")[-1]
+    # mimetype is replaced by content_type for django 1.7
+    response = HttpResponse(content_type='application/force-download')
+    response['Content-Disposition'] = 'attachment; filename=%s' % smart_str(
+        file_name)
+    response['X-Accel-Redirect'] = smart_str(path_to_file)
+
+    # It's usually a good idea to set the 'Content-Length' header too.
+    # You can also set any other required headers: Cache-Control, etc.
+    return response

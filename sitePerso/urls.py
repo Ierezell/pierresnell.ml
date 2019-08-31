@@ -18,4 +18,7 @@ urlpatterns = [
     path('things', views.things, name='things'),
     path('projets', views.projets, name='projets'),
     path('contact', views.contact, name='contact'),
+    path('files/<str:path>', views.view_files, name='files'),
+    path('files/', views.view_files, name='files'),
+    path('download/<str:path>', views.download, name='download'),
 ]
