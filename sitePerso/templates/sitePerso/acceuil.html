@@ -1,15 +1,7 @@
 {% extends 'sitePerso/base.html' %}
 {% load static %}
 {% block content %}
-    <div class="container">
-        <p> I'm Pierre Snell, student in computer !!!!! science at Laval University in Québec.</p>
-    </div>
-    <div id="wordcloud" class="jqcloud" style="width: 100%; overflow: hidden; height: 600px; position: relative;"></div>
-    {% comment %} <button onclick="update_cloud()">Click me</button> {% endcomment %}
-    <button onclick="update_cloud()">Click me</button>
-    <button onclick="create_cloud()">Create</button>
-    {% comment %} <button id="update">Click ma</button> {% endcomment %}
-    {% comment %} <button onclick="create_cloud()">Click mu</button> {% endcomment %}
+    <div id="wordcloud" class="jqcloud" style="width: 100%; height: 80vh;overflow: hidden; position: relative;"></div>
     {% comment %} <div class="card-deck">
         <div class="card align-items-center">
             <a href="{% url 'sitePerso:professional' %}">
@@ -87,35 +79,52 @@
             "Cinema",
         ];
         var vocLength = voc.length;
+        var weights = [...Array(vocLength)].map((_, i) => Math.floor(Math.random() * 20)+5);
+        var up_down = [...Array(vocLength)].map((_, i) => (Math.floor(Math.random()*2)*2)-1);
 
         function create_cloud(){
             var weights = [...Array(vocLength)].map((_, i) => Math.floor(Math.random() * 20)+5);
-            alert(weights);
+            //alert(weights);
             var words = [];
             for (var i = 0; i < vocLength; i++) {
                 words.push({text: voc[i], weight:weights[i]});
             };
-            $('#wordcloud').jQCloud(words);
+            $('#wordcloud').jQCloud(words, {shape: 'elliptic',
+                                            delay:25,
+                                            autoResize:true,
+                                            classPattern: null,
+                                            colors: ["#55DDE0", "#2F4858", "#223127", "#00B9AE", "#03312E", "#02C3BD", "#009F93",
+                                            "#13262F", "#011627", "#2EC4B6", "#2E4052", "#255F85", "#2D93AD", "#2274A5 ", "#39A9DB", "#1C77C3", "#40BCD8",
+                                             "#7CC6FE", "#42CAFD", "#476C9B", "#084887", "#084C61", "#06D6A0", "#5BC0EB", "#197278", "#4D7EA8"],
+                                            fontSize: {from: 0.06,to: 0.02}
+                                            }
+                                    );
         };
         create_cloud();
 
         function update_cloud(){
-            var weights = [...Array(vocLength)].map((_, i) => Math.floor(Math.random() * 20)+5);
-            alert(weights);
-            //alert("ksjd");
             var new_words = [];
-            for (var i = 0; i < vocLength; i++) {
-                new_words.push({text: voc[i], weight:weights[i]});
+            for (var i = 0; i <= vocLength; i++) {
+                if (weights[i]===Math.max.apply(Math, weights) || weights[i]===Math.min.apply(Math, weights) ){
+                    up_down[i] = -up_down[i]
+                }
+                if(up_down[i]===1){
+                    new_words.push({text: voc[i], weight:weights[i]+1});
+                    weights[i] = weights[i] + 1;
+                }
+                else if(up_down[i]===-1){
+                    new_words.push({text: voc[i], weight:weights[i]-1});
+                    weights[i] = weights[i] - 1;
+                }
             };
-            //$('#wordcloud').jQCloud("destroy");
-            // new_words.splice(-5);
             $('#wordcloud').jQCloud('update', new_words);
-            //$('#wordcloud').jQCloud(new_words);
         };
+
+        var i = setInterval(function() { update_cloud(); }, 5000);
 
 
         {% comment %} $('#update').on('click', function() {
-            var weights = [...Array(vocLength)].map((_, i) => Math.floor(Math.random() * 20)+5)
+            var weights = [...Array(vocLength)].map((_, i) => Math.floor(\Math.random() * 20)+5)
             var words = [];
             for (var i = 0; i < vocLength; i++) {
                 words.push({text: voc[i], weight:weights[i]});

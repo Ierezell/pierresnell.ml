@@ -54,8 +54,7 @@
 } */
 
 body{
-    /* background-color: rgb(6, 255, 26); */
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(42, 43, 58, 0.774);
 }
 .card-img-top {
     width: 18vw;
@@ -65,7 +64,7 @@ body{
 
 
 a.navbar-text:hover{
-    background: #9A9DA0;
+    /* background: #9A9DA0; */
     color: blueviolet;
 }
 
