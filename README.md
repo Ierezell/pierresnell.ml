@@ -1,2 +1,2 @@
-# pierresnell.duckdns.org
+# pierresnell.ml
 Files for my personnal website
